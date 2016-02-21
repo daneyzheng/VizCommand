@@ -91,6 +91,16 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			break;
 
+		case WM_COMMAND:
+
+			{
+
+				return OnCommand(wParam, lParam) ? 0 : 1;
+
+			}
+
+			break;
+
 		default:
 
 			break;
@@ -110,6 +120,13 @@ int CWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 void CWindow::OnDestroy() {
 
 	PostQuitMessage(0);
+
+}
+
+BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
+{
+	
+	return FALSE;
 
 }
 
