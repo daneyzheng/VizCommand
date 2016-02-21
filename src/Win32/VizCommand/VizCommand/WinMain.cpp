@@ -1,9 +1,23 @@
-#include <windows.h>
-#include <tchar.h>
+#include "Application.h"
 
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
 
-	MessageBox(NULL, _T("Hello, world!"), _T("ObjeqtNote"), MB_ICONASTERISK);
+	CApplication *pApp;
+	int iRet;
+
+	pApp = new CApplication();
+
+	if (!pApp->InitInstance(hInstance, lpCmdLine, nShowCmd)) {
+
+		pApp->ExitInstance();
+		delete pApp;
+		return -1;
+
+	}
+
+	iRet = pApp->Run();
+
+	delete pApp;
 
 	return 0;
 
