@@ -3,12 +3,21 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include "Window.h"
+
+class CWindow;
+
 class CApplication {
+
+	private:
+
+		HWND m_hWnd;
 
 	public:
 
 		HINSTANCE m_hInstance;
-		HWND m_hWnd;
+		CWindow *m_pWindow;
+
 
 		CApplication();
 		virtual ~CApplication();

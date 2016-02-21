@@ -1,11 +1,11 @@
-#include "Application.h"
+#include "MainApplication.h"
 
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nShowCmd) {
 
 	CApplication *pApp;
 	int iRet;
 
-	pApp = new CApplication();
+	pApp = new CMainApplication();
 
 	if (!pApp->InitInstance(hInstance, lpCmdLine, nShowCmd)) {
 

@@ -3,6 +3,7 @@
 CApplication::CApplication(){
 
 	m_hInstance = NULL;
+	m_pWindow = NULL;
 	m_hWnd = NULL;
 
 }
@@ -10,6 +11,12 @@ CApplication::CApplication(){
 CApplication::~CApplication() {
 
 	m_hInstance = NULL;
+	if (m_pWindow != NULL) {
+
+		delete m_pWindow;
+		m_pWindow = NULL;
+
+	}
 	if (m_hWnd != NULL) {
 
 		m_hWnd = NULL;
@@ -97,6 +104,12 @@ int CApplication::Run() {
 
 int CApplication::ExitInstance() {
 
+	if (m_pWindow != NULL) {
+
+		delete m_pWindow;
+		m_pWindow = NULL;
+
+	}
 	if (m_hWnd != NULL) {
 
 		m_hWnd = NULL;
