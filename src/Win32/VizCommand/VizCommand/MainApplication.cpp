@@ -1,4 +1,5 @@
 #include "MainApplication.h"
+#include "MainWindow.h"
 
 BOOL CMainApplication::InitInstance(HINSTANCE hInstance, LPTSTR lpCmdLine, int nShowCmd) {
 
@@ -13,7 +14,7 @@ BOOL CMainApplication::InitInstance(HINSTANCE hInstance, LPTSTR lpCmdLine, int n
 
 	}
 
-	m_pWindow = new CWindow(this);
+	m_pWindow = new CMainWindow(this);
 
 	rc.left = 0;
 	rc.top = 0;

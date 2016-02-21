@@ -19,7 +19,7 @@ class CWindow {
 
 		CWindow();
 		CWindow(CApplication *pApp);
-		~CWindow();
+		virtual ~CWindow();
 
 		static BOOL RegisterClass(HINSTANCE hInstance);
 
