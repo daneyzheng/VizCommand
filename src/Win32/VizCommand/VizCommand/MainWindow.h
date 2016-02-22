@@ -1,20 +1,12 @@
 #pragma once
 
-#include "Window.h"
-#include "Menu.h"
+#include "MenuWindow.h"
 
-class CApplication;
-
-class CMainWindow : public CWindow {
+class CMainWindow : public CMenuWindow {
 
 	public:
 
-		CMenu *m_pMenu;
-
 		CMainWindow();
 		CMainWindow(CApplication *pApp);
-		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
-		virtual void OnDestroy();
-		virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 
 };

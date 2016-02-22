@@ -150,6 +150,7 @@
     <ClCompile Include="MainApplication.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="MainApplication.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
