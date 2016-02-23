@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="MainApplication.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuWindow.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="MainApplication.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuWindow.h" />

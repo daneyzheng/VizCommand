@@ -8,5 +8,6 @@ class CMainWindow : public CMenuWindow {
 
 		CMainWindow();
 		CMainWindow(CApplication *pApp);
+		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 
 };
