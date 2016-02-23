@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "FileDialog.h"
 
 CMainMenu::CMainMenu() : CMenu(){
 
@@ -60,7 +61,13 @@ void CMainMenu::OnFileNew(){
 
 void CMainMenu::OnFileOpen(){
 
-	MessageBox(NULL, _T("OnFileOpen"), _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+	CFileDialog openfiledlg;
+
+	if (openfiledlg.GetOpenFileName(m_hWnd, _T("テキストファイル(*.txt)\0*.txt\0すべてのファイル(*.*)\0*.*\0\0"), 41)) {
+		
+		MessageBox(NULL, openfiledlg.m_tszFilePath, _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+
+	}
 
 }
 
