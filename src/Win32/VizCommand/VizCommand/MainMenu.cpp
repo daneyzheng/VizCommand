@@ -79,7 +79,13 @@ void CMainMenu::OnFileSave(){
 
 void CMainMenu::OnFileSaveAs(){
 
-	MessageBox(NULL, _T("OnFileSaveAs"), _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+	CFileDialog savefiledlg;
+
+	if (savefiledlg.GetSaveFileName(m_hWnd, _T("テキストファイル(*.txt)\0*.txt\0すべてのファイル(*.*)\0*.*\0\0"), 41)) {
+
+		MessageBox(NULL, savefiledlg.m_tszFilePath, _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+
+	}
 
 }
 
