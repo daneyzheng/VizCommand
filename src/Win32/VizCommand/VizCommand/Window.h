@@ -36,6 +36,7 @@ class CWindow {
 		virtual BOOL Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance);
 
 		virtual int OnClose();
+		virtual void OnSize(UINT nType, int cx, int cy);
 
 		virtual BOOL ShowWindow(int nCmdShow);
 		virtual LRESULT DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

@@ -2,13 +2,12 @@
 
 #include "Window.h"
 
-class CEdit : public CWindow {
+class CStatic : public CWindow {
 
 	public:
 
-		CEdit();
-		CEdit(CApplication *pApp);
+		CStatic();
+		CStatic(CApplication *pApp);
 		virtual BOOL Create(LPCTSTR lpctszWindowName, const RECT &rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance);
 		virtual void OnDestroy();
-
 };

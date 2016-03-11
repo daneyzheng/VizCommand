@@ -14,16 +14,6 @@ BOOL CEdit::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent,
 
 }
 
-int CEdit::OnClose() {
-
-	return 0;
-
-}
-
 void CEdit::OnDestroy() {
-
-	tstring s = _T("aa");
-	//Sleep(10000);
-	//GoDestroy();
-
+	
 }

@@ -16,10 +16,15 @@ CMainWindow::CMainWindow(CApplication *pApp) : CMenuWindow(pApp) {
 CMainWindow::~CMainWindow() {
 
 	m_pMenu = NULL;
-
+	
 	if (m_pEdit != NULL) {
 		delete m_pEdit;
 		m_pEdit = NULL;
+	}
+
+	if (m_pStatic != NULL) {
+		delete m_pStatic;
+		m_pStatic = NULL;
 	}
 
 }
@@ -32,11 +37,18 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	m_pMenu->SetMenu(hwnd);
 
-	RECT rc = { 50, 50, 200, 200 };
+	RECT rc;	// RECT rc = { 50, 50, 200, 200 };
 
-	m_pEdit = new CEdit(m_pApp);
+	GetClientRect(hwnd, &rc);
 
-	m_pEdit->Create(_T(""), rc, hwnd, (HMENU)IDC_EDIT1, lpCreateStruct->hInstance);
+	//m_pEdit = new CEdit(m_pApp);
+
+	//m_pEdit->Create(_T(""), rc, hwnd, (HMENU)IDC_EDIT1, lpCreateStruct->hInstance);
+
+	m_pStatic = new CStatic(m_pApp);
+
+	m_pStatic->Create(_T(""), rc, hwnd, (HMENU)IDC_STATIC1, lpCreateStruct->hInstance);
+
 
 	return 0;
 
@@ -49,7 +61,7 @@ void CMainWindow::OnDestroy() {
 }
 
 int CMainWindow::OnClose() {
-
+	
 
 	if (m_pEdit != NULL) {
 		DestroyWindow(m_pEdit->m_hWnd);
@@ -57,6 +69,24 @@ int CMainWindow::OnClose() {
 		m_pEdit = NULL;
 	}
 
+	if (m_pStatic != NULL) {
+		DestroyWindow(m_pStatic->m_hWnd);
+		delete m_pStatic;
+		m_pStatic = NULL;
+	}
+
 	return 0;
+
+}
+
+void CMainWindow::OnSize(UINT nType, int cx, int cy) {
+
+	if (m_pEdit != NULL) {
+		MoveWindow(m_pEdit->m_hWnd, 0, 0, cx, cy, TRUE);
+	}
+
+	if (m_pStatic != NULL) {
+		MoveWindow(m_pStatic->m_hWnd, 0, 0, cx, cy, TRUE);
+	}
 
 }

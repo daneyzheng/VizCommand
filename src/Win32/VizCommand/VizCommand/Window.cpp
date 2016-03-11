@@ -109,7 +109,6 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 	switch (uMsg) {
 
-		case WM_NCCREATE:
 		case WM_CREATE:
 
 			{
@@ -157,15 +156,17 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			break;
 
-		case WM_NOTIFY:
+		case WM_SIZE:
 
 			{
 
-				tstring tt = _T("aaa");
+				UINT nType = (UINT)wParam;
+				int iWidth = LOWORD(lParam);
+				int iHeight = HIWORD(lParam);
+				
+				OnSize(nType, iWidth, iHeight);
 
 			}
-
-			break;
 
 		default:
 
@@ -195,8 +196,7 @@ void CWindow::OnDestroy() {
 
 }
 
-BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
-{
+BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam) {
 	
 	return FALSE;
 
@@ -205,6 +205,10 @@ BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
 int CWindow::OnClose() {
 
 	return 0;
+
+}
+
+void CWindow::OnSize(UINT nType, int cx, int cy) {
 
 }
 
