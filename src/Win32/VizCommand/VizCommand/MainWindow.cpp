@@ -26,6 +26,11 @@ CMainWindow::~CMainWindow() {
 		delete m_pStatic;
 		m_pStatic = NULL;
 	}
+	
+	if (m_pMulti != NULL) {
+		delete m_pMulti;
+		m_pMulti;
+	}
 
 }
 
@@ -45,10 +50,13 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	//m_pEdit->Create(_T(""), rc, hwnd, (HMENU)IDC_EDIT1, lpCreateStruct->hInstance);
 
-	m_pStatic = new CStatic(m_pApp);
+	//m_pStatic = new CStatic(m_pApp);
 
-	m_pStatic->Create(_T(""), rc, hwnd, (HMENU)IDC_STATIC1, lpCreateStruct->hInstance);
+	//m_pStatic->Create(_T(""), rc, hwnd, (HMENU)IDC_STATIC1, lpCreateStruct->hInstance);
 
+	m_pMulti = new CMulti(m_pApp);
+
+	m_pMulti->Create(_T(""), rc, hwnd, (HMENU)IDC_MULTI1, lpCreateStruct->hInstance);
 
 	return 0;
 
@@ -75,6 +83,12 @@ int CMainWindow::OnClose() {
 		m_pStatic = NULL;
 	}
 
+	if (m_pMulti != NULL) {
+		DestroyWindow(m_pMulti->m_hWnd);
+		delete m_pMulti;
+		m_pMulti = NULL;
+	}
+
 	return 0;
 
 }
@@ -87,6 +101,10 @@ void CMainWindow::OnSize(UINT nType, int cx, int cy) {
 
 	if (m_pStatic != NULL) {
 		MoveWindow(m_pStatic->m_hWnd, 0, 0, cx, cy, TRUE);
+	}
+
+	if (m_pMulti != NULL) {
+		MoveWindow(m_pMulti->m_hWnd, 0, 0, cx, cy, TRUE);
 	}
 
 }

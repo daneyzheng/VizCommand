@@ -3,9 +3,11 @@
 #include "MenuWindow.h"
 #include "Edit.h"
 #include "Static.h"
+#include "Multi.h"
 
 #define IDC_EDIT1 WM_USER + 201
 #define IDC_STATIC1 WM_USER + 301
+#define IDC_MULTI1 WM_USER + 401
 
 class CMainWindow : public CMenuWindow {
 
@@ -13,6 +15,7 @@ class CMainWindow : public CMenuWindow {
 
 		CEdit *m_pEdit;
 		CStatic *m_pStatic;
+		CMulti *m_pMulti;
 
 		CMainWindow();
 		CMainWindow(CApplication *pApp);

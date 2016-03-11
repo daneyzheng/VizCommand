@@ -74,7 +74,7 @@ BOOL CWindow::Create(LPCTSTR lpctszWindowName, const RECT &rect, HINSTANCE hInst
 
 }
 
-BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance) {
+BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, BOOL bProcChange) {
 
 	m_tstrClassName = lpctszClassName;
 
@@ -85,16 +85,21 @@ BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dw
 
 	}
 
-	m_lpfnWndProc = (WNDPROC)GetWindowLong(m_hWnd, GWL_WNDPROC);
-	SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)CWindow::StaticWindowProc);
+	if (bProcChange) {
 
-	if (CWindow::m_mapBaseWindowClassMap.find(m_tstrClassName) == CWindow::m_mapBaseWindowClassMap.end()) {
-		CWindow::m_mapBaseWindowClassMap.insert(std::pair<tstring, WNDPROC>(m_tstrClassName, m_lpfnWndProc));
+		m_lpfnWndProc = (WNDPROC)GetWindowLong(m_hWnd, GWL_WNDPROC);
+		SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)CWindow::StaticWindowProc);
+
+		if (CWindow::m_mapBaseWindowClassMap.find(m_tstrClassName) == CWindow::m_mapBaseWindowClassMap.end()) {
+			CWindow::m_mapBaseWindowClassMap.insert(std::pair<tstring, WNDPROC>(m_tstrClassName, m_lpfnWndProc));
+		}
+
 	}
 
 	if (CWindow::m_mapWindowMap.find(m_hWnd) == CWindow::m_mapWindowMap.end()) {
 		CWindow::m_mapWindowMap.insert(std::pair<HWND, CWindow *>(m_hWnd, this));
 	}
+
 	return TRUE;
 
 }

@@ -154,6 +154,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuWindow.cpp" />
+    <ClCompile Include="Multi.cpp" />
     <ClCompile Include="Static.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuWindow.h" />
+    <ClInclude Include="Multi.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Window.h" />

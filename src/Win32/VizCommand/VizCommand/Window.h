@@ -33,7 +33,7 @@ class CWindow {
 		static BOOL RegisterClass(HINSTANCE hInstance);
 
 		virtual BOOL Create(LPCTSTR lpctszWindowName, const RECT &rect, HINSTANCE hInstance);
-		virtual BOOL Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance);
+		virtual BOOL Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, BOOL bProcChange);
 
 		virtual int OnClose();
 		virtual void OnSize(UINT nType, int cx, int cy);
