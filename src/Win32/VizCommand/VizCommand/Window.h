@@ -6,6 +6,12 @@
 
 #include "Application.h"
 
+#ifdef UNICODE
+#define tstring std::wstring
+#else
+#define tstring std::string
+#endif
+
 class CApplication;
 
 class CWindow {
@@ -13,9 +19,12 @@ class CWindow {
 	public:
 
 		static std::map<HWND, CWindow *>m_mapWindowMap;
+		static std::map<tstring, WNDPROC>m_mapBaseWindowClassMap;
 
 		HWND m_hWnd;
 		CApplication *m_pApp;
+		tstring m_tstrClassName;
+		WNDPROC m_lpfnWndProc;
 
 		CWindow();
 		CWindow(CApplication *pApp);
@@ -24,6 +33,10 @@ class CWindow {
 		static BOOL RegisterClass(HINSTANCE hInstance);
 
 		virtual BOOL Create(LPCTSTR lpctszWindowName, const RECT &rect, HINSTANCE hInstance);
+		virtual BOOL Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance);
+
+		virtual int OnClose();
+
 		virtual BOOL ShowWindow(int nCmdShow);
 		virtual LRESULT DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

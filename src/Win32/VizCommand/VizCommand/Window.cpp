@@ -1,11 +1,14 @@
 #include "Window.h"
 
 std::map<HWND, CWindow *> CWindow::m_mapWindowMap;
+std::map<tstring, WNDPROC> CWindow::m_mapBaseWindowClassMap;
 
 CWindow::CWindow() {
 
 	m_hWnd = NULL;
 	m_pApp = NULL;
+	m_tstrClassName = _T("");
+	m_lpfnWndProc = NULL;
 
 }
 
@@ -13,6 +16,8 @@ CWindow::CWindow(CApplication *pApp) {
 
 	m_hWnd = NULL;
 	m_pApp = pApp;
+	m_tstrClassName = _T("");
+	m_lpfnWndProc = NULL;
 
 }
 
@@ -20,6 +25,8 @@ CWindow::~CWindow() {
 
 	m_hWnd = NULL;
 	m_pApp = NULL;
+	m_tstrClassName = _T("");
+	m_lpfnWndProc = NULL;
 
 }
 
@@ -44,19 +51,50 @@ BOOL CWindow::RegisterClass(HINSTANCE hInstance) {
 
 	}
 
+	if (CWindow::m_mapBaseWindowClassMap.find(wc.lpszClassName) == CWindow::m_mapBaseWindowClassMap.end()) {
+		CWindow::m_mapBaseWindowClassMap.insert(std::pair<tstring, WNDPROC>(wc.lpszClassName, DefWindowProc));
+	}
+
 	return TRUE;
 
 }
 
 BOOL CWindow::Create(LPCTSTR lpctszWindowName, const RECT &rect, HINSTANCE hInstance) {
 
-	m_hWnd = CreateWindow(_T("CWindow"), lpctszWindowName, WS_OVERLAPPEDWINDOW, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL, NULL, hInstance, (LPVOID)this);
+	m_tstrClassName = _T("CWindow");
+
+	m_hWnd = CreateWindow(m_tstrClassName.c_str(), lpctszWindowName, WS_OVERLAPPEDWINDOW, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, NULL, NULL, hInstance, (LPVOID)this);
 	if (m_hWnd == NULL) {
 
 		return FALSE;
 
 	}
 
+	return TRUE;
+
+}
+
+BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance) {
+
+	m_tstrClassName = lpctszClassName;
+
+	m_hWnd = CreateWindow(m_tstrClassName.c_str(), lpctszWindowName, dwStyle, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, hWndParent, hMenu, hInstance, (LPVOID)this);
+	if (m_hWnd == NULL) {
+
+		return FALSE;
+
+	}
+
+	m_lpfnWndProc = (WNDPROC)GetWindowLong(m_hWnd, GWL_WNDPROC);
+	SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)CWindow::StaticWindowProc);
+
+	if (CWindow::m_mapBaseWindowClassMap.find(m_tstrClassName) == CWindow::m_mapBaseWindowClassMap.end()) {
+		CWindow::m_mapBaseWindowClassMap.insert(std::pair<tstring, WNDPROC>(m_tstrClassName, m_lpfnWndProc));
+	}
+
+	if (CWindow::m_mapWindowMap.find(m_hWnd) == CWindow::m_mapWindowMap.end()) {
+		CWindow::m_mapWindowMap.insert(std::pair<HWND, CWindow *>(m_hWnd, this));
+	}
 	return TRUE;
 
 }
@@ -71,6 +109,7 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 	switch (uMsg) {
 
+		case WM_NCCREATE:
 		case WM_CREATE:
 
 			{
@@ -91,11 +130,38 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			break;
 
+		case WM_CLOSE:
+
+			{
+
+				int r;
+
+				r = OnClose();
+				if (r == 1) {
+					return 0;
+				}
+
+				break;
+
+			}
+
+			break;
+
 		case WM_COMMAND:
 
 			{
 
 				return OnCommand(wParam, lParam) ? 0 : 1;
+
+			}
+
+			break;
+
+		case WM_NOTIFY:
+
+			{
+
+				tstring tt = _T("aaa");
 
 			}
 
@@ -107,7 +173,13 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 	}
 
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	if (CWindow::m_mapBaseWindowClassMap.find(m_tstrClassName) != CWindow::m_mapBaseWindowClassMap.end()) {
+		return CallWindowProc(CWindow::m_mapBaseWindowClassMap[m_tstrClassName], hwnd, uMsg, wParam, lParam);
+	}
+	else {
+		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	}
+
 
 }
 
@@ -127,6 +199,12 @@ BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam)
 {
 	
 	return FALSE;
+
+}
+
+int CWindow::OnClose() {
+
+	return 0;
 
 }
 
@@ -168,7 +246,16 @@ LRESULT CALLBACK CWindow::StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, 
 
 	if (pWindow == NULL) {
 
-		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+		TCHAR tszClassName[256];
+
+		::GetClassName(hwnd, tszClassName, 256);
+
+		if (CWindow::m_mapBaseWindowClassMap.find(tszClassName) != CWindow::m_mapBaseWindowClassMap.end()) {
+			return CallWindowProc(CWindow::m_mapBaseWindowClassMap[tszClassName], hwnd, uMsg, wParam, lParam);
+		}
+		else {
+			return DefWindowProc(hwnd, uMsg, wParam, lParam);
+		}
 
 	}
 	else {
