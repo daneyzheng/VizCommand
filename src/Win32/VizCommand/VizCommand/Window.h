@@ -18,8 +18,8 @@ class CWindow {
 
 	public:
 
-		static std::map<HWND, CWindow *>m_mapWindowMap;
-		static std::map<tstring, WNDPROC>m_mapBaseWindowClassMap;
+		static std::map<HWND, CWindow *> m_mapWindowMap;
+		static std::map<tstring, WNDPROC> m_mapBaseWindowClassMap;
 
 		HWND m_hWnd;
 		CApplication *m_pApp;

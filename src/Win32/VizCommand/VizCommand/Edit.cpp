@@ -14,6 +14,12 @@ BOOL CEdit::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent,
 
 }
 
+int CEdit::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
+
+	return 0;
+
+}
+
 void CEdit::OnDestroy() {
 	
 }

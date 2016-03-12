@@ -10,7 +10,13 @@ CMulti::CMulti(CApplication * pApp) : CWindow(pApp) {
 
 BOOL CMulti::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance) {
 
-	return CWindow::Create(_T("CMulti"), lpctszWindowName, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL, rect, hWndParent, hMenu, hInstance, FALSE);
+	return CWindow::Create(_T("CMulti"), lpctszWindowName, WS_CHILD | WS_VISIBLE/* | WS_VSCROLL | WS_HSCROLL*/, rect, hWndParent, hMenu, hInstance, FALSE);
+
+}
+
+int CMulti::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
+
+	return 0;
 
 }
 

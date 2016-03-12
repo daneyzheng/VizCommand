@@ -14,6 +14,12 @@ BOOL CStatic::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParen
 
 }
 
+int CStatic::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
+
+	return 0;
+
+}
+
 void CStatic::OnDestroy() {
 
 }
