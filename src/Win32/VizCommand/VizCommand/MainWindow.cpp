@@ -69,9 +69,7 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc1.right = rc.right;
 	rc1.bottom = 28;
 
-	pEncodeCB->Create(_T(""), rc1, m_pMulti->m_hWnd, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
-
-	m_pMulti->m_vecpWindowList.push_back(pEncodeCB);
+	m_pMulti->Add(pEncodeCB, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
 
 	CEdit *pTextEdit = new CEdit(m_pApp);
 
@@ -81,9 +79,7 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc2.right = rc.right;
 	rc2.bottom = rc.bottom - 28;
 
-	pTextEdit->Create(_T(""), rc2, m_pMulti->m_hWnd, (HMENU)IDC_MULTI1 + 2, lpCreateStruct->hInstance);
-
-	m_pMulti->m_vecpWindowList.push_back(pTextEdit);
+	m_pMulti->Add(pTextEdit, _T(""), rc2, (HMENU)IDC_MULTI1 + 2, lpCreateStruct->hInstance);
 
 	CDropDownList *pLineFeedCB = new CDropDownList(m_pApp);
 
@@ -93,9 +89,7 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc3.right = rc.right;
 	rc3.bottom = rc.bottom;
 
-	pLineFeedCB->Create(_T(""), rc3, m_pMulti->m_hWnd, (HMENU)IDC_MULTI1 + 3, lpCreateStruct->hInstance);
-
-	m_pMulti->m_vecpWindowList.push_back(pLineFeedCB);
+	m_pMulti->Add(pLineFeedCB, _T(""), rc3, (HMENU)IDC_MULTI1 + 3, lpCreateStruct->hInstance);
 
 	return 0;
 
@@ -111,25 +105,19 @@ int CMainWindow::OnClose() {
 	
 
 	if (m_pEdit != NULL) {
-		DestroyWindow(m_pEdit->m_hWnd);
+		m_pEdit->Destroy();
 		delete m_pEdit;
 		m_pEdit = NULL;
 	}
 
 	if (m_pStatic != NULL) {
-		DestroyWindow(m_pStatic->m_hWnd);
+		m_pStatic->Destroy();
 		delete m_pStatic;
 		m_pStatic = NULL;
 	}
 
 	if (m_pMulti != NULL) {
-		for (std::vector<CWindow *>::reverse_iterator it = m_pMulti->m_vecpWindowList.rbegin(); it != m_pMulti->m_vecpWindowList.rend(); ++it) {
-			::DestroyWindow((*it)->m_hWnd);
-			delete (*it);
-			(*it) = NULL;
-		}
-		m_pMulti->m_vecpWindowList.clear();
-		DestroyWindow(m_pMulti->m_hWnd);
+		m_pMulti->Destroy();
 		delete m_pMulti;
 		m_pMulti = NULL;
 	}

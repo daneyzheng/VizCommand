@@ -74,6 +74,14 @@ BOOL CWindow::Create(LPCTSTR lpctszWindowName, const RECT &rect, HINSTANCE hInst
 
 }
 
+BOOL CWindow::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance) {
+	
+	m_tstrClassName = _T("CWindow");
+
+	return Create(m_tstrClassName.c_str(), lpctszWindowName, WS_CHILD | WS_VISIBLE, rect, hWndParent, hMenu, hInstance, FALSE);
+
+}
+
 BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dwStyle, const RECT & rect, HWND hWndParent, HMENU hMenu, HINSTANCE hInstance, BOOL bProcChange) {
 
 	m_tstrClassName = lpctszClassName;
@@ -101,6 +109,13 @@ BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dw
 	}
 
 	return TRUE;
+
+}
+
+void CWindow::Destroy() {
+
+	DestroyWindow(m_hWnd);
+	m_hWnd = NULL;
 
 }
 

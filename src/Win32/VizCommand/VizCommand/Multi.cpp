@@ -14,6 +14,35 @@ BOOL CMulti::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent
 
 }
 
+BOOL CMulti::Add(CWindow * pWindow, LPCTSTR lpctszWindowName, const RECT & rect, HMENU hMenu, HINSTANCE hInstance) {
+
+	BOOL bRet = pWindow->Create(lpctszWindowName, rect, m_hWnd, hMenu, hInstance);
+	if (bRet) {
+
+		m_vecpWindowList.push_back(pWindow);
+
+	}
+
+	return bRet;
+
+}
+
+void CMulti::Destroy() {
+
+	for (std::vector<CWindow *>::reverse_iterator it = m_vecpWindowList.rbegin(); it != m_vecpWindowList.rend(); ++it) {
+		
+		(*it)->Destroy();
+		delete (*it);
+		(*it) = NULL;
+	
+	}
+	m_vecpWindowList.clear();
+
+	DestroyWindow(m_hWnd);
+	m_hWnd = NULL;
+
+}
+
 int CMulti::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	return 0;
