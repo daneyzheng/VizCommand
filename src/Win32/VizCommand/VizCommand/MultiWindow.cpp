@@ -1,29 +1,42 @@
-#include "MultiView.h"
+#include "MultiWindow.h"
 #include "Edit.h"
 #include "DropDownList.h"
 
-CMultiView::CMultiView() : CWindow() {
+CMultiWindow::CMultiWindow() : CMultiView() {
 
-	m_pMulti = NULL;
-
-}
-
-CMultiView::CMultiView(CApplication * pApp) : CWindow(pApp) {
-
-	m_pMulti = NULL;
+	m_pMenu = NULL;
 
 }
 
-CMultiView::~CMultiView() {
+CMultiWindow::CMultiWindow(CApplication * pApp) : CMultiView(pApp) {
+
+	m_pMenu = NULL;
+
+}
+
+CMultiWindow::~CMultiWindow() {
 
 	if (m_pMulti != NULL) {
 		delete m_pMulti;
 		m_pMulti;
 	}
 
+	if (m_pMenu) {
+
+		delete m_pMenu;
+		m_pMenu = NULL;
+
+	}
+
 }
 
-int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
+int CMultiWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
+
+	m_pMenu = new CMenu(lpCreateStruct->hInstance);
+
+	m_pMenu->LoadMenu(IDR_MENU);
+
+	m_pMenu->SetMenu(hwnd);
 
 	RECT rc;
 
@@ -69,28 +82,30 @@ int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 }
 
-void CMultiView::OnDestroy() {
+void CMultiWindow::OnDestroy() {
+
+	if (m_pMenu) {
+
+		delete m_pMenu;
+		m_pMenu = NULL;
+
+	}
 
 	__super::OnDestroy();
 
 }
 
-int CMultiView::OnClose() {
+BOOL CMultiWindow::OnCommand(WPARAM wParam, LPARAM lParam) {
 
-	if (m_pMulti != NULL) {
-		m_pMulti->Destroy();
-		delete m_pMulti;
-		m_pMulti = NULL;
+	if (HIWORD(wParam) == 0) {
+
+		return m_pMenu->OnCommandMenuItem(wParam, lParam);
+
 	}
+	else {
 
-	return 0;
+		return FALSE;
 
-}
-
-void CMultiView::OnSize(UINT nType, int cx, int cy) {
-
-	if (m_pMulti != NULL) {
-		MoveWindow(m_pMulti->m_hWnd, 0, 0, cx, cy, TRUE);
 	}
 
 }

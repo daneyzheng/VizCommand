@@ -157,6 +157,7 @@
     <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="Multi.cpp" />
     <ClCompile Include="MultiView.cpp" />
+    <ClCompile Include="MultiWindow.cpp" />
     <ClCompile Include="Static.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="Multi.h" />
     <ClInclude Include="MultiView.h" />
+    <ClInclude Include="MultiWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Window.h" />
