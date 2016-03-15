@@ -46,6 +46,8 @@ class CWindow {
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 		virtual void OnDestroy();
 		virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
+		virtual void OnPaint();
+		virtual HBRUSH OnCtlColorEdit(WPARAM wParam, LPARAM lParam);
 
 		static LRESULT CALLBACK StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

@@ -16,8 +16,18 @@ CMenu::CMenu(HINSTANCE hInstance) {
 
 }
 
+CMenu::CMenu(CApplication * pApp, HINSTANCE hInstance) {
+
+	m_pApp = pApp;
+	m_hInstance = hInstance;
+	m_hMenu = NULL;
+	m_hWnd = NULL;
+
+}
+
 CMenu::~CMenu() {
 
+	m_pApp = NULL;
 	m_hInstance = NULL;
 	m_hMenu = NULL;
 	m_hWnd = NULL;

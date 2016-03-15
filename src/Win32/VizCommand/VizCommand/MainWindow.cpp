@@ -2,44 +2,21 @@
 
 #include "MainWindow.h"
 #include "MainMenu.h"
+#include "Edit.h"
 #include "DropDownList.h"
+#include "Console.h"
 
-CMainWindow::CMainWindow() : CMenuWindow() {
-
-	m_pMenu = NULL;
-
-}
-
-CMainWindow::CMainWindow(CApplication *pApp) : CMenuWindow(pApp) {
-
-	m_pMenu = NULL;
+CMainWindow::CMainWindow() : CMultiWindow() {
 
 }
 
-CMainWindow::~CMainWindow() {
-
-	m_pMenu = NULL;
-	
-	if (m_pEdit != NULL) {
-		delete m_pEdit;
-		m_pEdit = NULL;
-	}
-
-	if (m_pStatic != NULL) {
-		delete m_pStatic;
-		m_pStatic = NULL;
-	}
-	
-	if (m_pMulti != NULL) {
-		delete m_pMulti;
-		m_pMulti;
-	}
+CMainWindow::CMainWindow(CApplication *pApp) : CMultiWindow(pApp) {
 
 }
 
 int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
-	m_pMenu = new CMainMenu(lpCreateStruct->hInstance);
+	m_pMenu = new CMainMenu(m_pApp, lpCreateStruct->hInstance);
 
 	m_pMenu->LoadMenu(IDR_MENU);
 
@@ -60,6 +37,19 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	m_pMulti = new CMulti(m_pApp);
 
 	m_pMulti->Create(_T(""), rc, hwnd, (HMENU)IDC_MULTI1, lpCreateStruct->hInstance);
+
+	CConsole *pConsole = new CConsole(m_pApp);
+
+	RECT rc1;// = { rc };
+	rc1.top = 0;
+	rc1.left = 0;
+	rc1.right = rc.right - 16;
+	rc1.bottom = rc.bottom - 16;
+
+	m_pMulti->Add(pConsole, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
+	
+	//m_pMulti->m_vecpWindowList[0]->
+#if FALSE
 
 	CDropDownList *pEncodeCB = new CDropDownList(m_pApp);
 
@@ -91,15 +81,23 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	m_pMulti->Add(pLineFeedCB, _T(""), rc3, (HMENU)IDC_MULTI1 + 3, lpCreateStruct->hInstance);
 
+#endif
+
 	return 0;
 
 }
+
+#if FALSE
 
 void CMainWindow::OnDestroy() {
 
 	PostQuitMessage(0);
 
 }
+
+#endif
+
+#if FALSE
 
 int CMainWindow::OnClose() {
 	
@@ -126,6 +124,10 @@ int CMainWindow::OnClose() {
 
 }
 
+#endif
+
+#if FALSE
+
 void CMainWindow::OnSize(UINT nType, int cx, int cy) {
 
 	if (m_pEdit != NULL) {
@@ -141,3 +143,5 @@ void CMainWindow::OnSize(UINT nType, int cx, int cy) {
 	}
 
 }
+
+#endif

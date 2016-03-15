@@ -8,6 +8,7 @@ class CMainMenu : public CMenu {
 
 		CMainMenu();
 		CMainMenu(HINSTANCE hInstance);
+		CMainMenu(CApplication *pApp, HINSTANCE hInstance);
 		virtual BOOL OnCommandMenuItem(WPARAM wParam, LPARAM lParam);
 
 		void OnFileNew();

@@ -149,6 +149,16 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			break;
 
+		case WM_PAINT:
+
+			{
+
+				OnPaint();
+
+			}
+
+			break;
+
 		case WM_CLOSE:
 
 			{
@@ -188,6 +198,19 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			}
 
+			break;
+
+
+		case WM_CTLCOLOREDIT:
+
+			{
+
+				return (LRESULT)OnCtlColorEdit(wParam, lParam);
+
+			}
+
+			break;
+
 		default:
 
 			break;
@@ -219,6 +242,16 @@ void CWindow::OnDestroy() {
 BOOL CWindow::OnCommand(WPARAM wParam, LPARAM lParam) {
 	
 	return FALSE;
+
+}
+
+void CWindow::OnPaint() {
+
+}
+
+HBRUSH CWindow::OnCtlColorEdit(WPARAM wParam, LPARAM lParam) {
+
+	return HBRUSH(0);
 
 }
 

@@ -1,5 +1,5 @@
 #include "MainApplication.h"
-#include "MultiWindow.h"	//#include "MainWindow.h"
+#include "MainWindow.h"
 
 BOOL CMainApplication::InitInstance(HINSTANCE hInstance, LPTSTR lpCmdLine, int nShowCmd) {
 
@@ -21,7 +21,7 @@ BOOL CMainApplication::InitInstance(HINSTANCE hInstance, LPTSTR lpCmdLine, int n
 
 	}
 
-	m_pWindow = new CMultiWindow(this);	//new CMainWindow(this);
+	m_pWindow = new CMainWindow(this);
 
 	rc.left = 0;
 	rc.top = 0;
@@ -39,4 +39,18 @@ BOOL CMainApplication::InitInstance(HINSTANCE hInstance, LPTSTR lpCmdLine, int n
 
 	return TRUE;
 
+}
+
+int CMainApplication::ExitInstance() {
+
+#if FALSE
+	if (m_pFile) {
+		m_pFile->Close();
+		delete m_pFile;
+		m_pFile = NULL;
+	}
+#endif
+
+	return __super::ExitInstance();
+	
 }

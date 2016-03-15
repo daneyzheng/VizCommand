@@ -9,6 +9,7 @@ class CMulti : public CWindow {
 	public:
 
 		std::vector<CWindow *> m_vecpWindowList;
+		HBRUSH m_hBrush;
 
 		CMulti();
 		CMulti(CApplication *pApp);
@@ -17,6 +18,7 @@ class CMulti : public CWindow {
 		virtual void Destroy();
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 		virtual void OnDestroy();
+		virtual HBRUSH OnCtlColorEdit(WPARAM wParam, LPARAM lParam);
 
 		static BOOL RegisterClass(HINSTANCE hInstance);
 
