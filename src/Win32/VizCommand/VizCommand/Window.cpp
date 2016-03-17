@@ -95,6 +95,12 @@ BOOL CWindow::Create(LPCTSTR lpctszClassName, LPCTSTR lpctszWindowName, DWORD dw
 
 	if (bProcChange) {
 
+		if (OnCreate(m_hWnd, NULL) != 0) {
+			DestroyWindow(m_hWnd);
+			m_hWnd = NULL;
+			return FALSE;
+		}
+
 		m_lpfnWndProc = (WNDPROC)GetWindowLong(m_hWnd, GWL_WNDPROC);
 		SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)CWindow::StaticWindowProc);
 
@@ -211,6 +217,40 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			break;
 
+		case WM_CHAR:
+
+			{
+
+				if (OnChar(wParam, lParam) == -1) {
+					return 0;
+				}
+
+			}
+
+			break;
+
+		case WM_SYSCHAR:
+
+			{
+
+				if (OnSysChar(wParam, lParam) == -1) {
+					return 0;
+				}
+
+			}
+
+			break;
+
+		case WM_KEYDOWN:
+
+			{
+
+				if (OnKeyDown(wParam, lParam) == -1) {
+					return 0;
+				}
+
+			}
+
 		default:
 
 			break;
@@ -252,6 +292,24 @@ void CWindow::OnPaint() {
 HBRUSH CWindow::OnCtlColorEdit(WPARAM wParam, LPARAM lParam) {
 
 	return HBRUSH(0);
+
+}
+
+int CWindow::OnChar(WPARAM wParam, LPARAM lParam) {
+	
+	return 0;
+
+}
+
+int CWindow::OnSysChar(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
+
+}
+
+int CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
 
 }
 

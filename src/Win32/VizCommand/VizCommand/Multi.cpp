@@ -71,6 +71,16 @@ HBRUSH CMulti::OnCtlColorEdit(WPARAM wParam, LPARAM lParam) {
 
 }
 
+int CMulti::OnChar(WPARAM wParam, LPARAM lParam) {
+
+	if ((UINT)wParam == VK_UP) {
+		return -1;
+	}
+
+	return 0;
+
+}
+
 BOOL CMulti::RegisterClass(HINSTANCE hInstance) {
 
 	WNDCLASS wc;

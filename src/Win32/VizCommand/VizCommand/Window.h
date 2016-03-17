@@ -48,6 +48,9 @@ class CWindow {
 		virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);
 		virtual void OnPaint();
 		virtual HBRUSH OnCtlColorEdit(WPARAM wParam, LPARAM lParam);
+		virtual int OnChar(WPARAM wParam, LPARAM lParam);
+		virtual int OnSysChar(WPARAM wParam, LPARAM lParam);
+		virtual int OnKeyDown(WPARAM wParam, LPARAM lParam);
 
 		static LRESULT CALLBACK StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

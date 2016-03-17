@@ -1,3 +1,5 @@
+#include <shlobj.h>
+
 #include "Console.h"
 
 CConsole::CConsole() : CEdit() {
@@ -13,7 +15,16 @@ CConsole::CConsole(CApplication * pApp) : CEdit(pApp) {
 
 int CConsole::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
-	m_hBrush = CreateSolidBrush(RGB(0x00, 0x00, 0x00));
+	TCHAR tszPath[1024];
+
+	::SHGetSpecialFolderPath(hwnd, tszPath, CSIDL_PROFILE, FALSE);
+
+	m_tstrCurrentPath = tszPath;
+	m_tstrForm = _T(">");
+	m_tstrOutputForm = m_tstrCurrentPath;
+	m_tstrOutputForm = m_tstrOutputForm + m_tstrForm;
+
+	::SetWindowText(hwnd, m_tstrOutputForm.c_str());
 
 	return 0;
 
@@ -21,20 +32,32 @@ int CConsole::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 void CConsole::OnDestroy() {
 
-	if (m_hBrush) {
-		DeleteObject(m_hBrush);
-		m_hBrush = NULL;
-	}
-
 }
 
 HBRUSH CConsole::OnCtlColorEdit(WPARAM wParam, LPARAM lParam) {
 
-	HDC hDC = (HDC)wParam;
+	return HBRUSH(0);
 
-	SetBkMode(hDC, OPAQUE);
-	SetBkColor(hDC, RGB(0x00, 0x00, 0x00));
-	SetTextColor(hDC, RGB(0xFF, 0xFF, 0xFF));
-	return m_hBrush;
+}
+
+int CConsole::OnChar(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
+
+}
+
+int CConsole::OnSysChar(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
+
+}
+
+int CConsole::OnKeyDown(WPARAM wParam, LPARAM lParam) {
+
+	if ((UINT)wParam == VK_UP) {
+		return -1;
+	}
+
+	return 0;
 
 }

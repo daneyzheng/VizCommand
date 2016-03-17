@@ -19,6 +19,7 @@ class CMulti : public CWindow {
 		virtual int OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct);
 		virtual void OnDestroy();
 		virtual HBRUSH OnCtlColorEdit(WPARAM wParam, LPARAM lParam);
+		virtual int OnChar(WPARAM wParam, LPARAM lParam);
 
 		static BOOL RegisterClass(HINSTANCE hInstance);
 
