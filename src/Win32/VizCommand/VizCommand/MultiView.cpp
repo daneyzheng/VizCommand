@@ -43,7 +43,7 @@ int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc1.right = rc.right;
 	rc1.bottom = 28;
 
-	m_pMulti->Add(pEncodeCB, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
+	m_pMulti->Add(_T("EncodeCB"), pEncodeCB, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
 
 	CEdit *pTextEdit = new CEdit(m_pApp);
 
@@ -53,7 +53,7 @@ int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc2.right = rc.right;
 	rc2.bottom = rc.bottom - 28;
 
-	m_pMulti->Add(pTextEdit, _T(""), rc2, (HMENU)IDC_MULTI1 + 2, lpCreateStruct->hInstance);
+	m_pMulti->Add(_T("TextEdit"), pTextEdit, _T(""), rc2, (HMENU)IDC_MULTI1 + 2, lpCreateStruct->hInstance);
 
 	CDropDownList *pLineFeedCB = new CDropDownList(m_pApp);
 
@@ -63,7 +63,7 @@ int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc3.right = rc.right;
 	rc3.bottom = rc.bottom;
 
-	m_pMulti->Add(pLineFeedCB, _T(""), rc3, (HMENU)IDC_MULTI1 + 3, lpCreateStruct->hInstance);
+	m_pMulti->Add(_T("LineFeedCB"), pLineFeedCB, _T(""), rc3, (HMENU)IDC_MULTI1 + 3, lpCreateStruct->hInstance);
 
 	return 0;
 

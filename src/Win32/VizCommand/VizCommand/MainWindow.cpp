@@ -46,7 +46,7 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	rc1.right = rc.right - 16;
 	rc1.bottom = rc.bottom - 16;
 
-	m_pMulti->Add(pConsole, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
+	m_pMulti->Add(_T("Console"), pConsole, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
 	
 	//m_pMulti->m_vecpWindowList[0]->
 #if FALSE

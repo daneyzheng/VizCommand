@@ -14,6 +14,7 @@ BOOL CMulti::Create(LPCTSTR lpctszWindowName, const RECT & rect, HWND hWndParent
 
 }
 
+#if false
 BOOL CMulti::Add(CWindow * pWindow, LPCTSTR lpctszWindowName, const RECT & rect, HMENU hMenu, HINSTANCE hInstance) {
 
 	BOOL bRet = pWindow->Create(lpctszWindowName, rect, m_hWnd, hMenu, hInstance);
@@ -26,9 +27,33 @@ BOOL CMulti::Add(CWindow * pWindow, LPCTSTR lpctszWindowName, const RECT & rect,
 	return bRet;
 
 }
+#endif
+
+BOOL CMulti::Add(tstring tstrWindowID, CWindow * pWindow, LPCTSTR lpctszWindowName, const RECT & rect, HMENU hMenu, HINSTANCE hInstance) {
+
+	BOOL bRet = pWindow->Create(lpctszWindowName, rect, m_hWnd, hMenu, hInstance);
+	if (bRet) {
+
+		//m_vecpWindowList.push_back(pWindow);
+		if (m_mapSubWindowMap.find(tstrWindowID) == m_mapSubWindowMap.end()) {
+			m_mapSubWindowMap.insert(std::pair<tstring, CWindow *>(tstrWindowID, pWindow));
+		}
+
+	}
+
+	return bRet;
+
+}
 
 void CMulti::Destroy() {
 
+	for (auto it = m_mapSubWindowMap.begin(); it != m_mapSubWindowMap.end(); ++it) {
+		it->second->Destroy();
+		delete it->second;
+		it->second = NULL;
+	}
+	m_mapSubWindowMap.clear();
+#if false
 	for (std::vector<CWindow *>::reverse_iterator it = m_vecpWindowList.rbegin(); it != m_vecpWindowList.rend(); ++it) {
 		
 		(*it)->Destroy();
@@ -37,6 +62,7 @@ void CMulti::Destroy() {
 	
 	}
 	m_vecpWindowList.clear();
+#endif
 
 	DestroyWindow(m_hWnd);
 	m_hWnd = NULL;
