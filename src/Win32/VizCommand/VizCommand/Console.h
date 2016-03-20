@@ -11,6 +11,7 @@ class CConsole : public CEdit {
 		tstring m_tstrCurrentPath;
 		tstring m_tstrForm;
 		tstring m_tstrOutputForm;
+		long m_lStartPos;
 
 		CConsole();
 		CConsole(CApplication *pApp);
@@ -20,5 +21,7 @@ class CConsole : public CEdit {
 		virtual int OnChar(WPARAM wParam, LPARAM lParam);
 		virtual int OnSysChar(WPARAM wParam, LPARAM lParam);
 		virtual int OnKeyDown(WPARAM wParam, LPARAM lParam);
+		virtual int OnLButtonDown(WPARAM wParam, LPARAM lParam);
+		virtual int OnLButtonUp(WPARAM wParam, LPARAM lParam);
 
 };

@@ -51,7 +51,9 @@ class CWindow {
 		virtual int OnChar(WPARAM wParam, LPARAM lParam);
 		virtual int OnSysChar(WPARAM wParam, LPARAM lParam);
 		virtual int OnKeyDown(WPARAM wParam, LPARAM lParam);
-
+		virtual void OnMouseMove(WPARAM wParam, LPARAM lParam);
+		virtual int OnLButtonDown(WPARAM wParam, LPARAM lParam);
+		virtual int OnLButtonUp(WPARAM wParam, LPARAM lParam);
 		static LRESULT CALLBACK StaticWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 };

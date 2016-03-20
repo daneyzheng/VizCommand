@@ -251,6 +251,43 @@ LRESULT CWindow::DynamicWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM l
 
 			}
 
+			break;
+
+		case WM_MOUSEMOVE:
+
+			{
+
+				OnMouseMove(wParam, lParam);
+				break;
+
+			}
+
+			break;
+
+		case WM_LBUTTONDOWN:
+
+			{
+
+				if (OnLButtonDown(wParam, lParam) == -1) {
+					return 0;
+				}
+
+			}
+
+			break;
+
+		case WM_LBUTTONUP:
+
+			{
+
+				if (OnLButtonUp(wParam, lParam) == -1) {
+					return 0;
+				}
+
+			}
+
+			break;
+
 		default:
 
 			break;
@@ -308,6 +345,22 @@ int CWindow::OnSysChar(WPARAM wParam, LPARAM lParam) {
 }
 
 int CWindow::OnKeyDown(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
+
+}
+
+void CWindow::OnMouseMove(WPARAM wParam, LPARAM lParam) {
+
+}
+
+int CWindow::OnLButtonDown(WPARAM wParam, LPARAM lParam) {
+
+	return 0;
+
+}
+
+int CWindow::OnLButtonUp(WPARAM wParam, LPARAM lParam) {
 
 	return 0;
 
