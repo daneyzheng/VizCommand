@@ -43,8 +43,8 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	RECT rc1;// = { rc };
 	rc1.top = 0;
 	rc1.left = 0;
-	rc1.right = rc.right - 16;
-	rc1.bottom = rc.bottom - 16;
+	rc1.right = rc.right - 20;
+	rc1.bottom = rc.bottom - 20;
 
 	m_pMulti->Add(_T("Console"), pConsole, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
 	

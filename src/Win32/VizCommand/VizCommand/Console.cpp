@@ -24,11 +24,7 @@ int CConsole::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	m_tstrOutputForm = m_tstrCurrentPath;
 	m_tstrOutputForm = m_tstrOutputForm + m_tstrForm;
 
-	::SetWindowText(hwnd, m_tstrOutputForm.c_str());
-
-	SetFocus(hwnd);
-	SendMessage(hwnd, EM_SETSEL, (WPARAM)0x7FFFFFFF, (LPARAM)0x7FFFFFFF);	// -1(0xFFFFFFFF)‚¾‚Æ0‚ª•Ô‚Á‚Ä‚«‚Ä‚µ‚Ü‚¤.
-	SendMessage(hwnd, EM_GETSEL, (WPARAM)&m_lStartPos, NULL);
+	PutString(m_tstrOutputForm);
 
 	return 0;
 
@@ -45,6 +41,23 @@ HBRUSH CConsole::OnCtlColorEdit(WPARAM wParam, LPARAM lParam) {
 }
 
 int CConsole::OnChar(WPARAM wParam, LPARAM lParam) {
+
+	if ((UINT)wParam == VK_BACK) {
+		long lCurrentPos = 0;
+		SendMessage(m_hWnd, EM_GETSEL, (WPARAM)&lCurrentPos, NULL);
+		if (lCurrentPos <= m_lStartPos) {
+			return -1;
+		}
+	}
+
+	if ((UINT)wParam == VK_RETURN) {
+		
+		GetCommandLineString();
+		PutResponseString();
+		PutString(m_tstrOutputForm);
+		return -1;
+
+	}
 
 	return 0;
 
@@ -95,5 +108,77 @@ int CConsole::OnLButtonUp(WPARAM wParam, LPARAM lParam) {
 	}
 
 	return 0;
+
+}
+
+void CConsole::GetCommandLineString() {
+
+	unsigned int uiAllTextLen;
+	unsigned int uiCmdLineStrLen;
+	TCHAR *ptszAllText = NULL;
+
+	uiAllTextLen = GetWindowTextLength(m_hWnd);
+	ptszAllText = new TCHAR[uiAllTextLen + 1];
+	GetWindowText(m_hWnd, ptszAllText, uiAllTextLen + 1);
+
+	uiCmdLineStrLen = uiAllTextLen - m_lStartPos;
+	TCHAR *ptszCmdLineStrBuf = new TCHAR[uiCmdLineStrLen + 1];
+	_tcsncpy_s(ptszCmdLineStrBuf, uiCmdLineStrLen + 1 , &ptszAllText[m_lStartPos], uiCmdLineStrLen);
+	ptszCmdLineStrBuf[uiCmdLineStrLen] = _T('\0');
+	m_tstrCommandLineString = ptszCmdLineStrBuf;
+
+	delete[] ptszCmdLineStrBuf;
+	delete[] ptszAllText;
+
+}
+
+void CConsole::PutString(tstring tstr)
+{
+
+#if 1
+	::SendMessage(m_hWnd, EM_REPLACESEL, 0, (LPARAM)tstr.c_str());
+
+	SendMessage(m_hWnd, EM_SETSEL, (WPARAM)0x7FFFFFFF, (LPARAM)0x7FFFFFFF);	// -1(0xFFFFFFFF)‚¾‚Æ0‚ª•Ô‚Á‚Ä‚«‚Ä‚µ‚Ü‚¤.
+	SendMessage(m_hWnd, EM_GETSEL, (WPARAM)&m_lStartPos, NULL);
+
+#else
+	unsigned int uiLen = 0;
+	unsigned int uiNewTextLen = 0;
+	unsigned int uiTStrlen = 0;
+	TCHAR *ptszNewText = NULL;
+
+	uiLen = GetWindowTextLength(m_hWnd);
+	uiTStrlen = tstr.length();
+
+	uiNewTextLen = uiLen;
+	uiNewTextLen = uiNewTextLen + uiTStrlen;
+
+	ptszNewText = new TCHAR[uiNewTextLen + 1];
+	ZeroMemory(ptszNewText, uiNewTextLen + 1);
+
+	GetWindowText(m_hWnd, ptszNewText, uiNewTextLen + 1);
+	ptszNewText[uiLen] = _T('\0');
+
+	_tcscat_s(ptszNewText, uiNewTextLen + 1, tstr.c_str());
+	ptszNewText[uiNewTextLen] = _T('\0');
+
+	SetWindowText(m_hWnd, ptszNewText);
+
+	SendMessage(m_hWnd, EM_SETSEL, (WPARAM)0x7FFFFFFF, (LPARAM)0x7FFFFFFF);	// -1(0xFFFFFFFF)‚¾‚Æ0‚ª•Ô‚Á‚Ä‚«‚Ä‚µ‚Ü‚¤.
+	SendMessage(m_hWnd, EM_GETSEL, (WPARAM)&m_lStartPos, NULL);
+
+	delete[] ptszNewText;
+#endif
+
+}
+
+void CConsole::PutResponseString() {
+
+	PutString(_T("\r\n"));
+
+	m_tstrResponseString = m_tstrCommandLineString;
+	m_tstrResponseString = m_tstrResponseString + _T("\r\n");
+
+	PutString(m_tstrResponseString);
 
 }
