@@ -20,6 +20,7 @@ int CConsole::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 	::SHGetSpecialFolderPath(hwnd, tszPath, CSIDL_PROFILE, FALSE);
 
 	m_tstrCurrentPath = tszPath;
+	m_tstrCurrentPath = m_tstrCurrentPath + _T("\\test");
 	m_tstrForm = _T(">");
 	m_tstrOutputForm = m_tstrCurrentPath;
 	m_tstrOutputForm = m_tstrOutputForm + m_tstrForm;
