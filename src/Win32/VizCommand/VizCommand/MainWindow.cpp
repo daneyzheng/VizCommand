@@ -6,11 +6,11 @@
 #include "DropDownList.h"
 #include "Console.h"
 
-CMainWindow::CMainWindow() : CMultiWindow() {
+CMainWindow::CMainWindow() : CVisualConsoleWindow() {
 
 }
 
-CMainWindow::CMainWindow(CApplication *pApp) : CMultiWindow(pApp) {
+CMainWindow::CMainWindow(CApplication *pApp) : CVisualConsoleWindow(pApp) {
 
 }
 
@@ -34,19 +34,9 @@ int CMainWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	//m_pStatic->Create(_T(""), rc, hwnd, (HMENU)IDC_STATIC1, lpCreateStruct->hInstance);
 
-	m_pMulti = new CMulti(m_pApp);
+	m_pVisualConsolePanel = new CVisualConsolePanel(m_pApp);
 
-	m_pMulti->Create(_T(""), rc, hwnd, (HMENU)IDC_MULTI1, lpCreateStruct->hInstance);
-
-	CConsole *pConsole = new CConsole(m_pApp);
-
-	RECT rc1;// = { rc };
-	rc1.top = 0;
-	rc1.left = 0;
-	rc1.right = rc.right - 20;
-	rc1.bottom = rc.bottom - 20;
-
-	m_pMulti->Add(_T("Console"), pConsole, _T(""), rc1, (HMENU)IDC_MULTI1 + 1, lpCreateStruct->hInstance);
+	m_pVisualConsolePanel->Create(_T(""), rc, hwnd, (HMENU)IDC_VISUALCONSOLEPANEL1, lpCreateStruct->hInstance);
 	
 	//m_pMulti->m_vecpWindowList[0]->
 #if FALSE

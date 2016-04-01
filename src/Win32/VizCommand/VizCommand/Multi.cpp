@@ -64,7 +64,7 @@ void CMulti::Destroy() {
 	m_vecpWindowList.clear();
 #endif
 
-	DestroyWindow(m_hWnd);
+	BOOL b = DestroyWindow(m_hWnd);
 	m_hWnd = NULL;
 
 }

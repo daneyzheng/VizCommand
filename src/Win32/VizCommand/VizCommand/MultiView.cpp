@@ -31,7 +31,7 @@ int CMultiView::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	m_pMulti = new CMulti(m_pApp);
 
-	m_pMulti = new CMulti(m_pApp);
+	//m_pMulti = new CMulti(m_pApp);
 
 	m_pMulti->Create(_T(""), rc, hwnd, (HMENU)IDC_MULTI1, lpCreateStruct->hInstance);
 

@@ -160,6 +160,10 @@
     <ClCompile Include="MultiView.cpp" />
     <ClCompile Include="MultiWindow.cpp" />
     <ClCompile Include="Static.cpp" />
+    <ClCompile Include="VisualConsole.cpp" />
+    <ClCompile Include="VisualConsolePanel.cpp" />
+    <ClCompile Include="VisualConsoleView.cpp" />
+    <ClCompile Include="VisualConsoleWindow.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -179,6 +183,10 @@
     <ClInclude Include="MultiWindow.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Static.h" />
+    <ClInclude Include="VisualConsole.h" />
+    <ClInclude Include="VisualConsolePanel.h" />
+    <ClInclude Include="VisualConsoleView.h" />
+    <ClInclude Include="VisualConsoleWindow.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

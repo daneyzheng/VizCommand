@@ -42,7 +42,7 @@ int CMultiWindow::OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct) {
 
 	GetClientRect(hwnd, &rc);
 
-	m_pMulti = new CMulti(m_pApp);
+	//m_pMulti = new CMulti(m_pApp);
 
 	m_pMulti = new CMulti(m_pApp);
 

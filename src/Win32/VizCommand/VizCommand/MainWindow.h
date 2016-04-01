@@ -5,6 +5,7 @@
 //#include "Static.h"
 //#include "Multi.h"
 #include "MultiWindow.h"
+#include "VisualConsoleWindow.h"
 
 //#define IDC_EDIT1 WM_USER + 201
 //#define IDC_STATIC1 WM_USER + 301
@@ -12,7 +13,8 @@
 #define IDC_CONSOLE1 WM_USER + 501
 
 //class CMainWindow : public CMenuWindow {
-class CMainWindow : public CMultiWindow {
+//class CMainWindow : public CMultiWindow {
+class CMainWindow : public CVisualConsoleWindow {
 	
 	public:
 

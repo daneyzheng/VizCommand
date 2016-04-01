@@ -149,6 +149,7 @@ void CMainMenu::OnFileSaveAs(){
 
 void CMainMenu::OnAppExit(){
 
-	MessageBox(NULL, _T("OnAppExit"), _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+	//MessageBox(NULL, _T("OnAppExit"), _T("VizCommand"), MB_OK | MB_ICONASTERISK);
+	::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
 
 }
